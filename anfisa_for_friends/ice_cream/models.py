@@ -4,18 +4,40 @@ from core.models import PublishedModel
 
 
 class Category(PublishedModel):
-    title = models.CharField(max_length=256)
+    title = models.CharField(max_length=256, verbose_name='Название')
     slug = models.SlugField(max_length=64, unique=True)
     output_order = models.PositiveSmallIntegerField(default=100)
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+    def __str__(self):
+        return self.title
 
 
 class Topping(PublishedModel):
     title = models.CharField(max_length=256)
     slug = models.SlugField(max_length=64, unique=True)
 
+    class Meta:
+        verbose_name = 'Топпинг'
+        verbose_name_plural = 'Топпинги'
+
+    def __str__(self):
+        return self.title
+
 
 class Wrapper(PublishedModel):
-    title = models.CharField(max_length=256)
+    title = models.CharField(
+        max_length=256, help_text='Уникальное название обёртки, не более 256 символов')
+
+    class Meta:
+        verbose_name = 'Обёртка'
+        verbose_name_plural = 'Обёртки'
+
+    def __str__(self):
+        return self.title
 
 
 class IceCream(PublishedModel):
@@ -36,3 +58,9 @@ class IceCream(PublishedModel):
     toppings = models.ManyToManyField(Topping)
     is_on_main = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = 'Мороженое'
+        verbose_name_plural = 'Мороженое'
+
+    def __str__(self):
+        return self.title
